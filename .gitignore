@@ -1,0 +1,17 @@
+# General
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+
+# Environment variables
+.env
+
+# Logs
+*.log
+latest_run.log
+
+# Virtual Environment
+venv/
+.venv/
+env/
