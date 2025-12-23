@@ -22,11 +22,10 @@ def setup_logging():
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.FileHandler(log_filename, mode='w', encoding='utf-8'),
             logging.StreamHandler(sys.stdout)
         ]
     )
-    logging.info("Logging initialized. Writing to %s", log_filename)
+    logging.info("Logging initialized.")
 
 def get_system_performance():
     cpu_usage = psutil.cpu_percent(interval=1)
