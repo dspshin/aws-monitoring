@@ -15,6 +15,7 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 CHAT_ID = os.getenv('CHAT_ID')
 PROCESS_FILTER = os.getenv('PROCESS_FILTER', 'NS')
+SERVER_NAME = os.getenv('SERVER_NAME')
 
 # Setup Logging
 def setup_logging():
@@ -85,8 +86,11 @@ def get_device_info():
         node_name = uname.node
         system_info = f"{uname.system} {uname.release}"
         
+        server_name_str = f"Alias: <code>{SERVER_NAME}</code>\n" if SERVER_NAME else ""
+
         return (
             f"<b>🖥️ Device Info</b>\n"
+            f"{server_name_str}"
             f"Name: <code>{node_name}</code>\n"
             f"OS: {system_info}\n"
         )
