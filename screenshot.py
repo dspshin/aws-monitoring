@@ -6,6 +6,7 @@ import logging
 import sys
 from dotenv import load_dotenv
 from datetime import datetime
+import platform
 
 # Load environment variables
 load_dotenv()
@@ -78,6 +79,20 @@ def get_running_processes():
         return "No matching processes found."
     return "<b>⚙️ Running Processes</b>\n" + "\n".join(process_list)
 
+def get_device_info():
+    try:
+        uname = platform.uname()
+        node_name = uname.node
+        system_info = f"{uname.system} {uname.release}"
+        
+        return (
+            f"<b>🖥️ Device Info</b>\n"
+            f"Name: <code>{node_name}</code>\n"
+            f"OS: {system_info}\n"
+        )
+    except Exception:
+        return "<b>🖥️ Device Info</b>\nUnavailable\n"
+
 async def send_message_to_telegram(message, token, chat_id):
     bot = telegram.Bot(token=token)
     try:
@@ -100,10 +115,14 @@ async def main():
         # Collect running processes info
         running_processes_info = get_running_processes()
         
+        # Collect device info
+        device_info = get_device_info()
+        
         # Combine all information
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         full_info = (
             f"📅 <b>Report Time:</b> {timestamp}\n\n"
+            f"{device_info}\n"
             f"{performance_info}\n"
             f"{network_info}\n"
             f"{running_processes_info}"
